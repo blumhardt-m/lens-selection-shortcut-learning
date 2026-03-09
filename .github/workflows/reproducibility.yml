@@ -1,0 +1,42 @@
+name: Reproducibility check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install numpy scipy scikit-learn matplotlib
+
+      - name: Verify repository structure
+        run: |
+          test -f src/model.py
+          test -f src/dataset.py
+          test -f src/inference.py
+          test -f src/embedding.py
+          test -f src/metrics.py
+          test -f analysis/01_fp_concentration.py
+          test -f analysis/04_embedding_diagnostics.py
+          test -f demo/demo_inference.py
+          echo "Repository structure OK"
+
+      - name: Import smoke test
+        run: |
+          python -c "from src.model import build_model; m = build_model(); print(f'ProtocolCNN: {sum(p.numel() for p in m.parameters())} params')"
+          python -c "from src.metrics import gini, lorenz; print(f'Gini([1,1,1,10]) = {gini([1,1,1,10]):.3f}')"
+          python -c "from src.embedding import gradcam, disable_inplace_relu; print('embedding module OK')"
+          echo "Import smoke test passed"

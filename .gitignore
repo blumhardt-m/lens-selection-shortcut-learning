@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Large data and artifacts (not tracked)
+artifacts/
+data/raw/
+data/full/
+checkpoints/
+models/checkpoints/
+*.pt
+*.pth
+*.npz
+*.npy
+*.fits.gz
+
+# Allow small demo FITS
+!demo/example_cutout.fits
+
+# Allow committed figures
+!figures/*.png
+!figures/*.pdf
