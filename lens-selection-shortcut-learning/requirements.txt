@@ -1,0 +1,11 @@
+torch>=2.0
+torchvision
+numpy
+scipy
+pandas
+scikit-learn
+matplotlib
+scikit-image
+tqdm
+astropy
+umap-learn
