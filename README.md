@@ -23,7 +23,7 @@ This reproduces the key embedding-space separation figure:
 
 ![Embedding PCA per-group (logit)](figures/embedding_pca_per_group_logit.png)
 
-*PCA of per-group mean embeddings (128-dim penultimate layer) for 32 catastrophic
+*PCA of per-group mean embeddings (128-dim penultimate layer) for 29 catastrophic
 (FPR=1.0) and 32 clean (FPR=0.0) background groups. Color encodes the mean
 positive-class logit. Catastrophic groups are linearly separable in embedding
 space (LOO AUC = 0.95, permutation p < 0.005) despite being indistinguishable
@@ -160,7 +160,7 @@ Key results from the locked pipeline:
 | Metric | Value |
 |--------|-------|
 | FP Gini coefficient | 0.88 |
-| Catastrophic groups (FPR=1.0) | 32 of 217 |
+| Catastrophic groups (FPR=1.0) | 29 of 217 |
 | Embedding LOO AUC | 0.95 |
 | Grad-CAM peak outer (catastrophic vs clean) | p = 5x10^-13 |
 
