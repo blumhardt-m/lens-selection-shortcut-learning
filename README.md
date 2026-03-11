@@ -1,9 +1,14 @@
 # Background-Disjoint Cross-Validation for Gravitational Lens Classifiers
 
-This repository accompanies the paper:
+## Paper
 
-> **Background-Disjoint Cross-Validation Reveals Hidden Failure Modes in CNN Gravitational Lens Classifiers**
-> Michael Blumhardt (2026)
+**Background-Disjoint Cross-Validation Reveals Hidden Failure Modes in CNN Gravitational Lens Classifiers**
+Michael Blumhardt (2026)
+
+LaTeX source: [`paper/lens_paper_v2.tex`](paper/lens_paper_v2.tex) · Figures: [`paper/figures/`](paper/figures/)
+No compiled PDF is included in this repository. The paper is submitted for journal review; a preprint link will be added here upon posting.
+
+---
 
 Standard image-level cross-validation can leak background morphology into evaluation when injection pipelines generate multiple training samples from the same galaxy: images sharing a background can appear in both training and test folds, allowing a model to memorise background structure and return optimistic performance estimates. **Background-disjoint cross-validation (BDCV)** prevents this by assigning all images derived from a given background galaxy to the same fold, eliminating the leakage pathway entirely.
 
@@ -47,7 +52,13 @@ python analysis/01_fp_concentration.py
 
 **Outputs:** `results/fp_concentration_stats.txt`, `figures/fp_concentration_twopanel.pdf`, `figures/gini_permutation_null.pdf`
 
-Note: this script requires `artifacts/groupkfold/gkf_unweighted_seed0/fold{00..04}/test_predictions.npz`. See `data/README.md` for expected file locations. Scripts fail gracefully with clear messages when prerequisites are missing.
+⚠ **Required artifact**
+
+The reproduction script expects prediction files at:
+
+`artifacts/groupkfold/gkf_unweighted_seed0/fold{00..04}/test_predictions.npz`
+
+See `data/README.md` for expected file locations. The script fails gracefully if these files are missing.
 
 ---
 
@@ -61,14 +72,13 @@ Injection-trained lens classifiers are built by simulating gravitational arcs in
 
 Background-disjoint cross-validation treats the **background galaxy as the unit of assignment**: all images derived from a given background are kept in the same fold. With 5-fold BDCV on 217 backgrounds, each test fold contains approximately 43–44 backgrounds never seen during training. Implementation requires only `GroupKFold` (scikit-learn) with background identity as the group key — no additional computational cost.
 
----
+Conceptually:
 
-## Paper
-
-LaTeX source: [`paper/lens_paper_v2.tex`](paper/lens_paper_v2.tex)
-Figures: [`paper/figures/`](paper/figures/)
-
-No compiled PDF is included in this repository. The paper is submitted for journal review; a preprint link will be added here upon posting.
+```
+Standard CV          BDCV
+background A → train    background A → train only
+background A → test     background B → test only
+```
 
 ---
 
@@ -124,7 +134,7 @@ Catastrophic (FPR = 1.0) and clean (FPR = 0.0) background groups are linearly se
 
 **Grad-CAM attribution** (`analysis/02_gradcam_examples.py`, `analysis/03_gradcam_quantitative.py`)
 
-Quantitative attribution was computed on 29 catastrophic groups (289 images) and 32 matched clean groups (313 images). Peak outer attribution (10–35 px annulus) is consistently higher for catastrophic groups (p = 2.2×10⁻⁴); attribution asymmetry is consistently lower (p < 10⁻¹¹), indicating spatially balanced activation consistent with diffuse background structure driving the positive-class pathway. Attribution concentration was not stable across independent retraining runs and is treated as descriptive only.
+Quantitative attribution was computed on 29 catastrophic groups (289 images) and a matched subset of 32 clean groups (313 images) selected for comparison. Peak outer attribution (10–35 px annulus) is consistently higher for catastrophic groups (p = 2.2×10⁻⁴); attribution asymmetry is consistently lower (p < 10⁻¹¹), indicating spatially balanced activation consistent with diffuse background structure driving the positive-class pathway. Attribution concentration was not stable across independent retraining runs and is treated as descriptive only.
 
 ![Grad-CAM summary](figures/gradcam_summary_boxplot.png)
 
