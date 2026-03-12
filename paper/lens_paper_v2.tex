@@ -42,30 +42,28 @@ performance estimates.
 Background-disjoint cross-validation (BDCV) eliminates this leakage
 channel by assigning all images derived from a given background galaxy to
 a single fold. Applied to a controlled dataset of 2,200 single-band
-images (200 arc injections, 2,000 negatives) drawn from 217 unique
-backgrounds, a CNN with approximately $3.6\times10^5$ parameters yields
-FPR = 0.106 and AUC = 0.968 under standard 5-fold cross-validation,
-apparently satisfying a target false\nobreakdash-positive rate of 0.10.
-Background-disjoint evaluation yields FPR = 0.145 and AUC = 0.917,
-revealing a 37 per cent increase in false positives and a substantial
-reduction in recovery.
+images (200 arc injections and 2,000 negatives) drawn from 217 unique
+backgrounds, a convolutional neural network with approximately
+$3.6\times10^5$ parameters yields FPR = 0.106 and AUC = 0.968 under
+standard five-fold cross-validation. Background-disjoint evaluation
+yields FPR = 0.145 and AUC = 0.917, revealing a 37 per cent increase in
+false positives and a substantial reduction in recovery.
 
-False positives are extremely concentrated across background galaxies:
-the Gini coefficient of the per-background false-positive distribution
-is $G = 0.879$, exceeding the maximum value obtained under 2,000
-permutation replicates (null max = 0.530) by a margin of 0.35, placing
-the observed concentration completely outside the null support. Classical photometric and
-morphological descriptors fail to distinguish catastrophic from clean
-backgrounds, yet separation emerges within the learned representation
-(embedding-space AUC = 0.947; permutation $p < 0.005$). Replication on
-an independent parametric simulation of 150 S\'{e}rsic-profile
-backgrounds yields standard CV FPR = 0.107 and BDCV FPR = 0.180.
+False positives are extremely concentrated across background galaxies.
+The per-background false-positive distribution has Gini coefficient
+$G = 0.879$, exceeding the maximum value obtained under 2,000
+permutation replicates ($0.530$) by a margin of 0.35 and placing the
+observed statistic completely outside the null support. Classical
+photometric and morphological descriptors fail to distinguish catastrophic
+from clean backgrounds, yet separation emerges in the learned
+representation (embedding-space AUC = 0.947). Replication on an
+independent parametric simulation of 150 S\'{e}rsic-profile backgrounds
+yields standard CV FPR = 0.107 and BDCV FPR = 0.180.
 
-Results demonstrate that image-level cross-validation can substantially
-underestimate false-positive burden in injection-trained lens classifiers.
+Image-level cross-validation can therefore substantially underestimate
+false-positive burden in injection-trained lens classifiers.
 Background-disjoint cross-validation provides a simple evaluation
-safeguard capable of revealing background-dependent failure modes that
-may remain hidden under conventional image-level validation.
+safeguard capable of revealing background-dependent shortcut behaviour.
 \end{abstract}
 
 \begin{keywords}
