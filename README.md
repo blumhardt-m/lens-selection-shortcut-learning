@@ -6,7 +6,9 @@
 Michael Blumhardt (2026)
 
 LaTeX source: [`paper/lens_paper_v2.tex`](paper/lens_paper_v2.tex) · Figures: [`paper/figures/`](paper/figures/)
-No compiled PDF is included in this repository. The paper is submitted for journal review; a preprint link will be added here upon posting.
+No compiled PDF is included in this repository.
+
+**Publication status — October 30, 2026:** Unpublished manuscript. No preprint has been posted.
 
 ---
 
